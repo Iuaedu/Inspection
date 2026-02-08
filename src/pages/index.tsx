@@ -65,7 +65,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
           <div className="relative w-full h-16">
             <Image
-              src="/logo/logo-topline.svg"
+              src="/logo/longlogo.svg"
               alt="Yaamur Logo"
               fill
               className="object-contain"
@@ -152,7 +152,7 @@ export default function LoginPage() {
 
         <div className="text-center mt-8 fade-in-up">
           <p className="text-yaamur-text-light text-sm">
-            © 2025 Yaamur Association. All rights reserved.
+           © 2026 جامعة الإمام عبد الرحمن بن فيصل. جميع الحقوق محفوظة
           </p>
         </div>
       </div>

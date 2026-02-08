@@ -5,76 +5,103 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
-    
-    --yaamur-primary: 142 45% 25%;
-    --yaamur-primary-dark: 142 50% 20%;
-    --yaamur-secondary: 30 25% 85%;
-    --yaamur-secondary-dark: 30 20% 75%;
-    --yaamur-text: 142 30% 15%;
-    --yaamur-text-light: 142 15% 45%;
-    --yaamur-accent: 142 55% 35%;
-  }
+ :root {
+  --background: 0 0% 100%;
+  --foreground: 237 28% 16%;
 
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-    
-    --yaamur-primary: 142 45% 35%;
-    --yaamur-primary-dark: 142 50% 25%;
-    --yaamur-secondary: 30 15% 20%;
-    --yaamur-secondary-dark: 30 10% 15%;
-    --yaamur-text: 0 0% 95%;
-    --yaamur-text-light: 0 0% 65%;
-    --yaamur-accent: 142 55% 45%;
-  }
+  --card: 0 0% 100%;
+  --card-foreground: 237 28% 16%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 237 28% 16%;
+
+  /* Brand primary (Steel Blue) */
+  --primary: 219 44% 41%;
+  --primary-foreground: 0 0% 98%;
+
+  /* Brand secondary (Light Beige) */
+  --secondary: 41 48% 88%;
+  --secondary-foreground: 237 28% 16%;
+
+  --muted: 0 3% 89%;
+  --muted-foreground: 0 1% 41%;
+
+  /* Accent (Teal) */
+  --accent: 180 23% 57%;
+  --accent-foreground: 237 28% 16%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 212 27% 86%;
+  --input: 212 27% 86%;
+  --ring: 219 44% 41%;
+
+  /* Charts from the spec palette */
+  --chart-1: 348 33% 15%; /* Magenta */
+  --chart-2: 14 78% 42%;  /* Orange */
+  --chart-3: 50 91% 50%;  /* Yellow */
+  --chart-4: 64 51% 37%;  /* Green */
+  --chart-5: 181 44% 36%; /* Cyan/Teal */
+
+  --radius: 0.5rem;
+
+  /* Yaamur mapped to the new identity */
+  --yaamur-primary: 219 44% 41%;
+  --yaamur-primary-dark: 237 28% 16%;
+  --yaamur-secondary: 41 48% 88%;
+  --yaamur-secondary-dark: 38 23% 68%;
+  --yaamur-text: 237 28% 16%;
+  --yaamur-text-light: 0 1% 41%;
+  --yaamur-accent: 181 44% 36%;
+}
+
+.dark {
+  --background: 237 28% 16%;
+  --foreground: 0 0% 98%;
+
+  --card: 230 29% 28%;
+  --card-foreground: 0 0% 98%;
+
+  --popover: 230 29% 28%;
+  --popover-foreground: 0 0% 98%;
+
+  /* Primary becomes lighter in dark mode for contrast */
+  --primary: 218 26% 65%;
+  --primary-foreground: 237 28% 16%;
+
+  --secondary: 230 29% 28%;
+  --secondary-foreground: 0 0% 98%;
+
+  --muted: 230 29% 28%;
+  --muted-foreground: 0 3% 89%;
+
+  --accent: 181 44% 36%;
+  --accent-foreground: 0 0% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 230 29% 28%;
+  --input: 230 29% 28%;
+  --ring: 218 26% 65%;
+
+  /* Keep charts vivid enough on dark */
+  --chart-1: 330 18% 74%; /* use a lighter magenta tint */
+  --chart-2: 14 78% 52%;
+  --chart-3: 50 91% 55%;
+  --chart-4: 64 51% 45%;
+  --chart-5: 180 23% 57%;
+
+  --yaamur-primary: 218 26% 65%;
+  --yaamur-primary-dark: 219 44% 41%;
+  --yaamur-secondary: 230 29% 28%;
+  --yaamur-secondary-dark: 237 28% 16%;
+  --yaamur-text: 0 0% 95%;
+  --yaamur-text-light: 0 0% 70%;
+  --yaamur-accent: 180 23% 57%;
+}
+
 }
 
 @layer base {

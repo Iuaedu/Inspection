@@ -467,38 +467,11 @@ export default function NewReport() {
     try {
       const savedMosque = await mosqueService.createMosque(mosqueForm);
 
-      // أنشئ صورة الخريطة مباشرة بعد إنشاء المسجد (قبل التقرير)
-      let mapPhotoUrl: string | null = null;
-      if (mosqueForm.latitude && mosqueForm.longitude) {
-        try {
-          const resp = await fetch("/api/map-photo", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              lat: mosqueForm.latitude,
-              lng: mosqueForm.longitude,
-              targetId: savedMosque.id,
-              targetType: "mosque",
-              userId: user.id,
-            }),
-          });
-          const mapJson = await resp.json();
-          if (resp.ok && mapJson.url) {
-            mapPhotoUrl = mapJson.url as string;
-          } else {
-            console.warn("map-photo API failed", mapJson?.error);
-          }
-        } catch (err) {
-          console.warn("map-photo fetch error", err);
-        }
-      }
-
       const reportData = {
         mosque_id: savedMosque.id,
         technician_id: user.id,
         report_date: new Date().toISOString(),
         status: "draft" as const,
-        map_photo_url: mapPhotoUrl,
       };
       const savedReport = await reportService.createReport(reportData);
 

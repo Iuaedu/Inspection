@@ -13,6 +13,22 @@ export interface AuthError {
   code?: string;
 }
 
+const ensureProfile = async (user: AuthUser | null) => {
+  if (!user?.id) return;
+  const { error } = await supabase
+    .from("profiles")
+    .upsert({
+      id: user.id,
+      email: user.email || null,
+      full_name: typeof user.user_metadata?.full_name === "string" ? user.user_metadata?.full_name : null,
+      updated_at: new Date().toISOString(),
+    }, { onConflict: "id" });
+
+  if (error) {
+    console.warn("Failed to ensure profile:", error.message);
+  }
+};
+
 // Dynamic URL Helper
 const getURL = () => {
   let url = process?.env?.NEXT_PUBLIC_VERCEL_URL ?? 
@@ -73,6 +89,8 @@ export const authService = {
         created_at: data.user.created_at
       } : null;
 
+      await ensureProfile(authUser);
+
       return { user: authUser, error: null };
     } catch (error) {
       console.error("Unexpected error during sign up:", error);
@@ -101,6 +119,8 @@ export const authService = {
         user_metadata: data.user.user_metadata,
         created_at: data.user.created_at
       } : null;
+
+      await ensureProfile(authUser);
 
       return { user: authUser, error: null };
     } catch (error) {

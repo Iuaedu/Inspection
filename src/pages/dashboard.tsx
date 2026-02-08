@@ -128,7 +128,7 @@ export default function Dashboard() {
             <div className="flex items-center gap-3 md:gap-4">
               <div className="w-15 h-10 md:w-12 md:h-12 rounded-2xl flex items-center justify-center shadow-lg">
                 <Image
-                  src="/logo/logo-brand.svg"
+                  src="/logo/longlogo.svg"
                   alt="Yaamur logo"
                   width={48}
                   height={48}

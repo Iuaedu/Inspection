@@ -59,8 +59,6 @@ export default function EditReport() {
   const [isSaving, setIsSaving] = useState(false);
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [isFetchingMap, setIsFetchingMap] = useState(false);
-  const mapFetchAttempted = useRef(false);
   const [mainItems, setMainItems] = useState<MainItem[]>([]);
   const [subItems, setSubItems] = useState<SubItem[]>([]);
   const [isIssueDialogOpen, setIsIssueDialogOpen] = useState(false);
@@ -88,42 +86,8 @@ export default function EditReport() {
   const [isSavingIssue, setIsSavingIssue] = useState(false);
 
   useEffect(() => {
-    const autoFetchMap = async () => {
-      if (mapFetchAttempted.current || isFetchingMap || !report || report.map_photo_url) return;
-      const { mosques } = report;
-      if (!mosques?.latitude || !mosques?.longitude) return;
-
-      try {
-        setIsFetchingMap(true);
-        mapFetchAttempted.current = true;
-        const resp = await fetch("/api/map-photo", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            lat: mosques.latitude,
-            lng: mosques.longitude,
-            reportId: report.id,
-            userId: user?.id,
-          }),
-        });
-        const mapJson = await resp.json();
-        if (resp.ok && mapJson.url) {
-          await reportService.updateReport(report.id, {
-            map_photo_url: mapJson.url,
-          });
-          setReport((prev) => (prev ? { ...prev, map_photo_url: mapJson.url } : prev));
-        } else {
-          console.warn("map-photo API failed", mapJson?.error);
-        }
-      } catch (err) {
-        console.warn("map-photo fetch error", err);
-      } finally {
-        setIsFetchingMap(false);
-      }
-    };
-
-    autoFetchMap();
-  }, [report, user, isFetchingMap]);
+    // Intentionally left empty to keep hook ordering stable after removing map-photo.
+  }, []);
  	
   const compressImage = async (
     file: File,

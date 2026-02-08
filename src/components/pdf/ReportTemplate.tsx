@@ -13,11 +13,6 @@ export const ReportTemplate = React.forwardRef<
 >(({ report, reportDate }, ref) => {
   const mosques = report.mosques;
   const issues = report.report_issues || [];
-  const mapLikePhoto =
-    report.map_photo_url ||
-    (issues[0]?.issue_photos && issues[0].issue_photos[0]
-      ? issues[0].issue_photos[0].photo_url
-      : undefined);
 
   // =====  =====
   let itemsTotal = 0;
@@ -66,7 +61,7 @@ export const ReportTemplate = React.forwardRef<
   // 
   tableRows.push({
     no: itemNumber,
-    item: "مصروفات تشغيلية (10%)",
+    item: "المصاريف التشغيلية (10%)",
     qty: 1,
     unit: "العملية",
     unit_price: operationalExpense.toFixed(2),
@@ -79,11 +74,11 @@ export const ReportTemplate = React.forwardRef<
     <>
       <div className="top-line" />
       <div className="top-logoY">
-        <img src="/logo/logo-topline.svg" alt="" />
+        <img src="/logo/longlogo.svg" alt="" />
       </div>
       <div className="top-logoM">
         <img
-          src="/logo/Ministry_of_islamic_affairs_in_saudi_arabia_Logo.svg"
+          src=""
           alt=""
         />
       </div>
@@ -93,30 +88,27 @@ export const ReportTemplate = React.forwardRef<
   const Footer: React.FC = () => (
     <>
       <div className="date-row">
-        <span className="tag">📅 تاريخ أعداد التقرير:</span>
+        <span className="tag">📅 تاريخ إعداد التقرير:</span>
         <span className="tag dateText">{reportDate}</span>
       </div>
       <div className="bottom-line" />
       <div className="footer">
         <div className="info" id="footerInfo">
-          جمعية متخصصة في تلبيةاحتياج المساجد في البناء-الصيانة-التشغيل-العناية-السقيا وجميع مايخدم بيوت الله
+        إدارة صيانة وتشغيل المسجد ومباني الجامعة.
         </div>
         <div className="footerinfo">
           <div className="imglogo" />
-          <p id="footerSocial">Yaamur_org 📱</p>
+          <p id="footerSocial">@IAU_KSA 📱</p>
         </div>
         <div className="footerinfo">
           <div className="imglogo" />
-          <p id="footerSite">https://yaamur.org.sa 🌍</p>
+          <p id="footerSite">https://www.iau.edu.sa 🌍</p>
         </div>
         <div className="footerinfo">
           <div className="imglogo" />
-          <p id="footerEmail">info@yaamur.org.sa 📧</p>
+          <p id="footerEmail">pr@iau.edu.sa 📧</p>
         </div>
-        <div className="footerinfo">
-          <div className="imglogo" />
-          <p id="footerStore">https://store.yaamur.org.sa 🛍️</p>
-        </div>
+        
       </div>
     </>
   );
@@ -124,13 +116,27 @@ export const ReportTemplate = React.forwardRef<
   return (
     <div ref={ref} className="report-wrapper">
       <style>{`
-        :root{
-          --bg:#f3f7ee;
-          --line:#2d6f5f;
-          --accent:#005f46;
-          --muted:#005B36;
-          --ink:#1f2d2a;
-        }
+       :root{
+  /* Base */
+  --bg: #ffffff;          /* خلفية الصفحة من الداخل */
+  --surface: #ffffff;     /* بطاقات/جداول */
+  --ink: #1f2d2a;         /* النص الأساسي */
+  --ink-soft: #4b5a57;    /* نص ثانوي */
+
+  /* Brand */
+  --primary: #3a5a96;     /* اللون الأساسي للهوية */
+  --primary-2: #180e45;   /* لون داكن/كحلي من الهوية */
+  --accent: #55e4ce;      /* تركواز/سماوي من الهوية (للتأكيد) */
+
+  /* Lines & borders */
+  --line: color-mix(in srgb, var(--primary) 70%, white);
+  --border: #e0e7e4;
+
+  /* States */
+  --ok: #3a5a96;
+  --ok-bg: #e9eef9;
+}
+
 
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
 
@@ -161,8 +167,8 @@ export const ReportTemplate = React.forwardRef<
           height: 794px;
               padding:0 0;
               margin:0 0;
-              background:#f3f7ee;        /* نفس var(--bg) */
-              border:1px solid #e0e7e4;
+              background:var(--bg);       /* نفس var(--bg) */
+              border:1px solid var(--border);
               position:relative;
               overflow:hidden;
             
@@ -197,9 +203,9 @@ export const ReportTemplate = React.forwardRef<
         .top-logoY img{
           position:absolute;
           left:39px;
-          top:-39px;
-          height:30px;
-          max-width:300px;
+          top:-54px;
+          height:55px;
+          max-width:550px;
         }
 
         .top-logoM{ left:190px; }
@@ -217,13 +223,14 @@ export const ReportTemplate = React.forwardRef<
           bottom:92px;
           display:flex;
          
-          color:#0e4d3b;
+          color:var(--ink-soft);
         }
 
         .tag{
           padding:8px 14px;
           border-radius:8px;
           font-weight:700;
+          color:var(--primary);
         }
 
         .bottom-line{
@@ -232,7 +239,7 @@ export const ReportTemplate = React.forwardRef<
           right:64px;
           bottom:88px;
           height:2px;
-          background:#1f2d2a;
+          background: color-mix(in srgb, var(--ink) 80%, white); 
           opacity:.6;
         }
 
@@ -246,7 +253,7 @@ export const ReportTemplate = React.forwardRef<
           align-items:center;
           flex-wrap:wrap;
           gap:10px;
-          color:var(--muted);
+          color:var(--ink-soft);
           font-size:12px;
           direction:rtl;
         }
@@ -282,23 +289,38 @@ export const ReportTemplate = React.forwardRef<
         .footerinfo p{
           margin:0;
         }
+          .footer,
+.footer .info,
+.footerinfo,
+.footerinfo p{
+  color: var(--ink) !important;
+}
+
+/* لو النصوص/الروابط تطلع كرابط */
+.footer a,
+.footer a:visited,
+.footer a:hover,
+.footer a:active{
+  color: var(--ink) !important;
+  text-decoration: none !important;
+}
 
         /* Shared */
         .right{
           display:flex;
           flex-direction:column;
-          gap:38px;
+          gap:10px;
         }
 
         .brand img{
-          width:400px;
-          height:200px;
+          width:500px;
+          height:300px;
           object-fit:contain;
         }
 
         .title-card h1{
           margin:0;
-          color:var(--accent);
+          color:var(--primary);
           font-size:44px;
           font-weight:700;
         }
@@ -306,7 +328,7 @@ export const ReportTemplate = React.forwardRef<
         .subtitle{
           margin-top:10px;
           font-size:28px;
-          color:#0e4d3b;
+          color:var(--primary-2);
         }
 
         .photo-wrap{
@@ -388,7 +410,7 @@ export const ReportTemplate = React.forwardRef<
 
         .p4-main{
           text-align:center;
-          color:#0e4d3b;
+          color:var(--primary);
           font-size:22px;
           font-weight:700;
         }
@@ -413,22 +435,22 @@ export const ReportTemplate = React.forwardRef<
 
         .cost th,
         .cost td{
-          border:1px solid #2d6f5f;
+          border:1px solid var(--ok);
           padding:6px 10px;
         }
 
         .cost th{
-          background:#4a8c5f;
+          background:var(--primary);
           color:#fff;
           font-weight:700;
         }
 
         .cost tr:nth-child(even) td{
-          background:#f3f7ee;
+          background: var(--ok-bg);
         }
 
         .cost tfoot td{
-          background:#d9f0e0;
+          background: color-mix(in srgb, var(--accent) 25%, white);
           font-weight:bold;
         }
 
@@ -437,6 +459,7 @@ export const ReportTemplate = React.forwardRef<
             size:A4 landscape;
             margin:0;
           }
+          *{ -webkit-print-color-adjust: exact; print-color-adjust: exact; }
           .report-wrapper{
             background:var(--bg);
             padding:0;
@@ -467,7 +490,7 @@ export const ReportTemplate = React.forwardRef<
           >
             <div className="right">
               <div className="brand">
-                <img src="/logo/logo-brand.svg" alt="" />
+                <img src="/logo/collogbig.png" alt="" />
               </div>
               <div className="title-card">
                 <h1>تقرير المعاينة</h1>
@@ -494,7 +517,7 @@ export const ReportTemplate = React.forwardRef<
           <Footer />
         </section>
 
-        {/* */}
+        {/* 
         <section className="page">
           <Header />
           <div
@@ -544,30 +567,21 @@ export const ReportTemplate = React.forwardRef<
             </div>
 
             <div className="photo-wrap">
-              {/* \\*/}
-              {mapLikePhoto ? (
-                <img
-                  src={mapLikePhoto}
-                  alt="¯"
-                  crossOrigin="anonymous"
-                />
-              ) : (
-                <div
-                  style={{
-                    padding: 16,
-                    textAlign: "center",
-                    width: "100%",
-                    fontSize: 20,
-                  }}
-                >
-                  {mosques?.location_link || "غير محدد"}
-                </div>
-              )}
+              <div
+                style={{
+                  padding: 16,
+                  textAlign: "center",
+                  width: "100%",
+                  fontSize: 20,
+                }}
+              >
+                {mosques?.location_link || "غير محدد"}
+              </div>
             </div>
           </div>
           <Footer />
         </section>
-
+            */}
         {/* */}
         {issues.map((issue, issueIndex) => {
           const photos = issue.issue_photos || [];
@@ -651,46 +665,20 @@ export const ReportTemplate = React.forwardRef<
                   <th>البند</th>
                   <th>العدد</th>
                   <th>الوحد</th>
-                  <th>التكلفة الفردية بالريال</th>
-                  <th>التكلفة الإجمالية بالريال</th>
                 </tr>
                               </thead>
                               <tbody>
-                  {tableRows.map((row, index) => {
-                    const isOp = row.isOperational;
-
+                  {tableRows.filter((row) => !row.isOperational).map((row, index) => {
                     return (
                       <tr key={index}>
                         <td>{row.no}</td>
-
-                        {isOp ? (
-                          <>
-                            {/* ندمج 4 أعمدة: البند + العدد + الوحدة + التكلفة الفردية */}
-                            <td colSpan={4} style={{ textAlign: "center" }}>
-                              {row.item}
-                            </td>
-                            <td>{row.total}</td>
-                          </>
-                        ) : (
-                          <>
-                            <td>{row.item}</td>
-                            <td>{row.qty}</td>
-                            <td>{row.unit}</td>
-                            <td>{row.unit_price}</td>
-                            <td>{row.total}</td>
-                          </>
-                        )}
+                        <td>{row.item}</td>
+                        <td>{row.qty}</td>
+                        <td>{row.unit}</td>
                       </tr>
                     );
                   })}
                 </tbody>
-
-              <tfoot>
-                <tr>
-                  <td colSpan={5}>أجمالي التكلفة </td>
-                  <td>{grandTotal.toFixed(2)}</td>
-                </tr>
-              </tfoot>
             </table>
           </div>
           <Footer />
