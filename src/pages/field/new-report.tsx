@@ -44,6 +44,15 @@ interface IssueFormData {
   };
 }
 
+const SUPPORTED_IMAGE_TYPES = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/heic",
+  "image/heif",
+]);
+const MAX_IMAGE_SIZE_MB = 15;
+
 export default function NewReport() {
   const { user, isLoading } = useAuth();
   const router = useRouter();
@@ -126,6 +135,19 @@ export default function NewReport() {
   const validatePhoneNumber = (phone: string) => {
     const saudiPhoneRegex = /^(\+966|966|0)5[0-9]{8}$/;
     return saudiPhoneRegex.test(phone.replace(/\s/g, ""));
+  };
+
+  const validateImageFile = (file: File): string | null => {
+    if (!SUPPORTED_IMAGE_TYPES.has(file.type)) {
+      return "نوع الصورة غير مدعوم. الأنواع المسموحة: JPG, JPEG, PNG, WEBP, HEIC, HEIF";
+    }
+
+    const maxBytes = MAX_IMAGE_SIZE_MB * 1024 * 1024;
+    if (file.size > maxBytes) {
+      return `حجم الصورة كبير. الحد الأقصى ${MAX_IMAGE_SIZE_MB}MB.`;
+    }
+
+    return null;
   };
 
   const handleAutoFillLocation = () => {
@@ -265,6 +287,13 @@ export default function NewReport() {
   const handleMosquePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !user) return;
+
+    const validationError = validateImageFile(file);
+    if (validationError) {
+      alert(validationError);
+      e.target.value = "";
+      return;
+    }
     
     const previewUrl = URL.createObjectURL(file);
     setMosqueForm((prev) => ({ ...prev, main_photo_url: previewUrl }));
@@ -292,6 +321,13 @@ export default function NewReport() {
   const handleCase1PhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    const validationError = validateImageFile(file);
+    if (validationError) {
+      alert(validationError);
+      e.target.value = "";
+      return;
+    }
     
     const previewUrl = URL.createObjectURL(file);
     setCurrentIssue((prev) => {
@@ -327,6 +363,13 @@ export default function NewReport() {
   const handleCase2PhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>, itemIndex: number) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    const validationError = validateImageFile(file);
+    if (validationError) {
+      alert(validationError);
+      e.target.value = "";
+      return;
+    }
     
     const previewUrl = URL.createObjectURL(file);
     setCurrentIssue((prev) => {

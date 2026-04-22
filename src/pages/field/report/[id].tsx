@@ -44,6 +44,15 @@ interface IssueFormData {
   };
 }
 
+const SUPPORTED_IMAGE_TYPES = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/heic",
+  "image/heif",
+]);
+const MAX_IMAGE_SIZE_MB = 15;
+
 type IssueInsert = Database["public"]["Tables"]["report_issues"]["Insert"];
 type IssueUpdate = Database["public"]["Tables"]["report_issues"]["Update"];
 
@@ -88,6 +97,19 @@ export default function EditReport() {
   useEffect(() => {
     // Intentionally left empty to keep hook ordering stable after removing map-photo.
   }, []);
+
+  const validateImageFile = (file: File): string | null => {
+    if (!SUPPORTED_IMAGE_TYPES.has(file.type)) {
+      return "نوع الصورة غير مدعوم. الأنواع المسموحة: JPG, JPEG, PNG, WEBP, HEIC, HEIF";
+    }
+
+    const maxBytes = MAX_IMAGE_SIZE_MB * 1024 * 1024;
+    if (file.size > maxBytes) {
+      return `حجم الصورة كبير. الحد الأقصى ${MAX_IMAGE_SIZE_MB}MB.`;
+    }
+
+    return null;
+  };
  	
   const compressImage = async (
     file: File,
@@ -304,6 +326,13 @@ const uploadPhoto = async (file: File): Promise<string> => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    const validationError = validateImageFile(file);
+    if (validationError) {
+      alert(validationError);
+      e.target.value = "";
+      return;
+    }
+
     const previewUrl = URL.createObjectURL(file);
     setCurrentIssue((prev) => {
       const newPhotos = [...prev.case1Data.photos];
@@ -338,6 +367,13 @@ const uploadPhoto = async (file: File): Promise<string> => {
   const handleCase2PhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>, itemIndex: number) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    const validationError = validateImageFile(file);
+    if (validationError) {
+      alert(validationError);
+      e.target.value = "";
+      return;
+    }
 
     const previewUrl = URL.createObjectURL(file);
     setCurrentIssue((prev) => {

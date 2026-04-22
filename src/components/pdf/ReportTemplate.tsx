@@ -129,7 +129,7 @@ export const ReportTemplate = React.forwardRef<
   --accent: #55e4ce;      /* تركواز/سماوي من الهوية (للتأكيد) */
 
   /* Lines & borders */
-  --line: color-mix(in srgb, var(--primary) 70%, white);
+  --line: #7690bd;
   --border: #e0e7e4;
 
   /* States */
@@ -239,7 +239,7 @@ export const ReportTemplate = React.forwardRef<
           right:64px;
           bottom:88px;
           height:2px;
-          background: color-mix(in srgb, var(--ink) 80%, white); 
+          background: #4b5755;
           opacity:.6;
         }
 
@@ -450,7 +450,7 @@ export const ReportTemplate = React.forwardRef<
         }
 
         .cost tfoot td{
-          background: color-mix(in srgb, var(--accent) 25%, white);
+          background: #d5f8f1;
           font-weight:bold;
         }
 
